@@ -44,11 +44,11 @@ class Model_AllCombined(nn.Module):
             r1 = torch.dist(node_emb, sumr1_inner / self.num_net, p=2) ** 2
 
             neighsidx = torch.LongTensor(
-                neighidx_nets[i][batch_indices]).cuda()  # neigbors of b_n, it is set, converted list
+                neighidx_nets[i][batch_indices]).cuda()  
             neigh_emb = self.neigh_embeddings[i](Variable(neighsidx)).unsqueeze(2).view(len(batch_indices), -1,
                                                                                         self.embedding_dim)
             loss_positive = nn.functional.logsigmoid(
-                torch.bmm(neigh_emb, node_emb)).squeeze().mean()  # only 1, converges to dot product
+                torch.bmm(neigh_emb, node_emb)).squeeze().mean() 
 
             sumr2_inner = 0
             for vr in range(self.num_net):
